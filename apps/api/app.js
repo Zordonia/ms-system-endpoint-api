@@ -1,7 +1,8 @@
 'use strict';
 
 var express, app, logger, compression,
-  methodOverride, config, auth, allowCrossOrigin, url, bodyParser;
+  methodOverride, config, auth, allowCrossOrigin, url,
+  bodyParser, sqsSystem;
 
 // Create express application
 express = require('express');
@@ -35,6 +36,10 @@ app.use(auth.sessionParser());
 app.use(auth.ensureSession());
 // Body Parser will be used to view JSON request bodies.
 app.use(bodyParser.json());
+
+// SQS Mobile Endpoint Consumer
+sqsSystem = require('./controllers/pubsub/subscriber.js');
+sqsSystem.start();
 
 // API endpoints
 var system_endpoint;
