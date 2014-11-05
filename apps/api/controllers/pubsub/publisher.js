@@ -23,14 +23,18 @@ sns = new AWS.SNS({
 module.exports = {
   publish: function (content) {
     var deferred = Q.defer();
-    deferred.resolve({
-      message: content
-    });
+    deferred.resolve(content);
     return deferred.promise.then( function (result) {
       return Q.nfcall(sns.publish.bind(sns), {
         TopicArn: config.SNS_ARN,
-        Message: JSON.stringify(result)
+        Message: JSON.stringify(result, null, 2)
+      }).then(_.identity, function (error) {
+        logger.error.write(error);
+        return error;
       });
+    }, function (error) {
+      logger.error.write(error);
+      return error;
     });
   }
 };

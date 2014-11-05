@@ -24,13 +24,13 @@ var taskStatusFailure = function (error) {
 module.exports = {
   simulate: function () {
     logger.debug.write('Simulation started.');
-    Q({ message: 'Starting task.' })
+    Q({ message: 'Starting task.', id: config.ID, timestamp: new Date().getTime().toString() })
     .delay(Math.random() * 10000)
     .then(publishTaskStatus, taskStatusFailure)
-    .then(function () { return { message: 'Continuing task.' }; }, taskStatusFailure)
+    .then(function () { return { message: 'Continuing task.', id: config.ID, timestamp: new Date().getTime().toString() }; }, taskStatusFailure)
     .delay(Math.random() * 10000)
     .then(publishTaskStatus, taskStatusFailure)
-    .then(function () { return { message: 'Task finished.' }; })
+    .then(function () { return { message: 'Task finished.', id: config.ID, timestamp: new Date().getTime().toString() }; })
     .delay(Math.random() * 10000)
     .then(publishTaskStatus, taskStatusFailure);
   }

@@ -73,7 +73,7 @@ processMessageRetrievalFailure = function (error) {
 run = function () {
   checkQueue()
     .then(processMessageBatch, processMessageRetrievalFailure)
-    .delay(5000)
+    .delay(config.POLL_DELAY)
     .finally(run);
 };
 
