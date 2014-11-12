@@ -25,13 +25,13 @@ module.exports = {
   simulate: function () {
     logger.debug.write('Simulation started.');
     Q({ message: 'Starting task.', id: config.ID, timestamp: new Date().getTime().toString() })
-    .delay(Math.random() * 10000)
+    .delay(Math.random() * 500)
     .then(publishTaskStatus, taskStatusFailure)
     .then(function () { return { message: 'Continuing task.', id: config.ID, timestamp: new Date().getTime().toString() }; }, taskStatusFailure)
-    .delay(Math.random() * 10000)
+    .delay(Math.random() * 500)
     .then(publishTaskStatus, taskStatusFailure)
     .then(function () { return { message: 'Task finished.', id: config.ID, timestamp: new Date().getTime().toString() }; })
-    .delay(Math.random() * 10000)
+    .delay(Math.random() * 500)
     .then(publishTaskStatus, taskStatusFailure);
   }
 };
